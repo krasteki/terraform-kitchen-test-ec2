@@ -134,3 +134,36 @@ Outputs:
 
 public_dns = your_aws_instance_public_ip
 ```
+
+8.  Try running the tests as is
+```
+$ bundle exec kitchen verify
+```
+
+If it is successful the output should be like:
+```
+Finished in 0.00292 seconds (files took 6.57 seconds to load)
+0 examples, 0 failures
+```
+
+9. Add basic test to make sure we are running on an Ubuntu system
+
+```
+$ vim test/integration/default/controls/operating_system_spec.rb
+```
+
+10. Run the test
+```
+$ bundle exec kitchen verify
+```
+output
+```
+Command: `lsb_release -a`
+  stdout
+    is expected to match /Ubuntu/
+
+Finished in 0.21235 seconds (files took 4.37 seconds to load)
+1 example, 0 failures
+```
+
+IV. 

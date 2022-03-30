@@ -20,7 +20,8 @@ verifier:
       backend: ssh
       user: ubuntu
       key_files:
-        - ~/path/to/your/private/aws/key.pem
+        #- ~/path/to/your/private/aws/key.pem
+         - krasteki_key_pair.pem
       hosts_output: public_dns
       reporter:
         - documentation
