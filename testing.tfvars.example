@@ -1,6 +1,6 @@
 #access_key = "my_aws_access_key"
 #secret_key = "my_aws_secret_key"
 key_name      = "krasteki_key_pair"
-region        = "eu-west-2"
-ami           = "ami-c7c7cda3"
+region        = "eu-west-1"
+ami           = "ami-f95ef58a"
 instance_type = "t2.micro"

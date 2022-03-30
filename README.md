@@ -166,4 +166,89 @@ Finished in 0.21235 seconds (files took 4.37 seconds to load)
 1 example, 0 failures
 ```
 
-IV. 
+IV. destroy current test kitchen 
+```
+$ bundle exec kitchen destroy
+```
+
+1. Change the content of `testing.tfvars` - the `region` and the `ami` (new aws key pair is needed in the new region)
+
+2. Now create the test kitchen instance again
+```
+$ bundle exec kitchen converge
+```
+
+3. Run the test
+```
+$ bundle exec kitchen verify
+```
+>>>>>> Transport error, can't connect to 'ssh' backend: SSH session could not be established
+>>>>>> ------Exception-------
+>>>>>> Class: Kitchen::ActionFailed
+>>>>>> Message: 1 actions failed.
+>>>>>>     Verify failed on instance <default-ubuntu>.  Please see .kitchen/logs/default-ubuntu.log for more details
+>>>>>> ----------------------
+>>>>>> Please see .kitchen/logs/kitchen.log for more details
+>>>>>> Also try running `kitchen diagnose --all` for configuration
+```
+
+The username we have specified for our test is ubuntu - this is fine for an ubuntu instance, but for an Amazon Linux instance, we need to use the ec2-user username
+
+4. Edit the `.kitchen.yml`
+```
+verifier:
+  name: terraform
+  systems:
+    - name: default
+      controls:
+        - operating_system
+      backend: ssh
+      key_files:
+        - ~/.ssh/ncs-laptop.pem
+      hosts_output: public_dns
+      user: ec2-user
+      reporter:
+        - documentation
+```
+
+5. Run the test again
+```
+$ bundle exec kitchen verify
+```
+
+And now we see a test failure:
+
+```
+Command: `lsb_release -a`
+  stdout
+    is expected to match /Ubuntu/ (FAILED - 1)
+
+Failures:
+
+  1) Command: `lsb_release -a` stdout is expected to match /Ubuntu/
+     Failure/Error: DEFAULT_FAILURE_NOTIFIER = lambda { |failure, _opts| raise failure }
+
+       expected "" to match /Ubuntu/
+       Diff:
+       @@ -1 +1 @@
+       -/Ubuntu/
+       +""
+     # ./test/integration/default/controls/operating_system_spec.rb:3:in `block (3 levels) in load_with_context'
+
+Finished in 0.20723 seconds (files took 6.56 seconds to load)
+1 example, 1 failure
+
+Failed examples:
+
+rspec  # Command: `lsb_release -a` stdout is expected to match /Ubuntu/
+
+```
+
+Alright, that means our test is failing when it is supposed to be failing, and passing when it is supposed to pass.
+
+6. Change the username back to ubuntu in the `kitchen.yml` and the `ami` back to ubuntu.
+
+7. Destroy the infra
+```
+$ bundle exec kitchen destroy
+```
