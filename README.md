@@ -67,7 +67,7 @@ $ bundle install
     - name: ubuntu
   ```
 
-  3.4. Add another verifier section. he verifier is what will verify whether your Test Kitchen instances match what is laid out in your inspec files.
+  3.4. Add another verifier section. The verifier is what will verify whether your Test Kitchen instances match what is laid out in your inspec files.
   ```
   ---
   driver:
@@ -102,5 +102,35 @@ $ bundle install
   - name: default
   ```
 
+III. Add the test
 
+1. Set up an inspec directory within our test directories
+```
+$ mkdir -p test/integration/default/controls
+```
+This will be our default group of tests. Now we need to provide a yml file with the name of that group within the group directory.
+```
+$ vim test/integration/default/inspec.yml
+```
+Add the following lines in the `inspec.yml
+```
+---
+name: default
+```
 
+2. Create EC2 instance and the rest of the resources in `main.tf`
+3. Add `variables.tf`
+4. Add `testing.tfvars.`
+And add in this content (substitute in the appropriate values for your AWS account, region, etc. key_name will be the existing key pair name already existing in AWS)
+5. Add `outputs.tf`
+
+6. Create test Kitchen instances
+```
+$ bundle exec kitchen converge
+```
+7. Check the output
+```
+Outputs:
+
+public_dns = your_aws_instance_public_ip
+```
