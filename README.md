@@ -182,14 +182,14 @@ $ bundle exec kitchen converge
 ```
 $ bundle exec kitchen verify
 ```
->>>>>> Transport error, can't connect to 'ssh' backend: SSH session could not be established
->>>>>> ------Exception-------
->>>>>> Class: Kitchen::ActionFailed
->>>>>> Message: 1 actions failed.
->>>>>>     Verify failed on instance <default-ubuntu>.  Please see .kitchen/logs/default-ubuntu.log for more details
->>>>>> ----------------------
->>>>>> Please see .kitchen/logs/kitchen.log for more details
->>>>>> Also try running `kitchen diagnose --all` for configuration
+Transport error, can't connect to 'ssh' backend: SSH session could not be established
+ ------Exception-------
+ Class: Kitchen::ActionFailed
+ Message: 1 actions failed.
+ Verify failed on instance <default-ubuntu>.  Please see .kitchen/logs/default-ubuntu.log for more details
+ ----------------------
+ Please see .kitchen/logs/kitchen.log for more details
+ Also try running `kitchen diagnose --all` for configuration
 ```
 
 The username we have specified for our test is ubuntu - this is fine for an ubuntu instance, but for an Amazon Linux instance, we need to use the ec2-user username
