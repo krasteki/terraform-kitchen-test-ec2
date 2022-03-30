@@ -92,3 +92,4 @@ build-iPhoneSimulator/
 
 
 .kitchen
+krasteki_key_pair.pem
