@@ -1,4 +1,4 @@
-### This repo contains terraform configuration
+### This repo contains terraform configuration to spin up an Amazon Web Services (AWS) EC2 instance using Inspec and Kitchen-Terraform from scratch.
 
 I. Prerequisites
 
