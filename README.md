@@ -183,13 +183,9 @@ $ bundle exec kitchen converge
 $ bundle exec kitchen verify
 ```
 Transport error, can't connect to 'ssh' backend: SSH session could not be established
- ------Exception-------
+Exception
  Class: Kitchen::ActionFailed
  Message: 1 actions failed.
- Verify failed on instance <default-ubuntu>.  Please see .kitchen/logs/default-ubuntu.log for more details
- ----------------------
- Please see .kitchen/logs/kitchen.log for more details
- Also try running `kitchen diagnose --all` for configuration
 ```
 
 The username we have specified for our test is ubuntu - this is fine for an ubuntu instance, but for an Amazon Linux instance, we need to use the ec2-user username
@@ -228,19 +224,13 @@ Failures:
   1) Command: `lsb_release -a` stdout is expected to match /Ubuntu/
      Failure/Error: DEFAULT_FAILURE_NOTIFIER = lambda { |failure, _opts| raise failure }
 
-       expected "" to match /Ubuntu/
-       Diff:
-       @@ -1 +1 @@
-       -/Ubuntu/
-       +""
-     # ./test/integration/default/controls/operating_system_spec.rb:3:in `block (3 levels) in load_with_context'
-
+  
 Finished in 0.20723 seconds (files took 6.56 seconds to load)
 1 example, 1 failure
 
 Failed examples:
 
-rspec  # Command: `lsb_release -a` stdout is expected to match /Ubuntu/
+rspec   Command: `lsb_release -a` stdout is expected to match /Ubuntu/
 
 ```
 
